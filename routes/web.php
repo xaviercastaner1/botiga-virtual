@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BotigaController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+/* ROUTES BOTIGA */
+Route::get('/botiga', [BotigaController::class, "index"])->name("botiga");
+Route::get('/producte/{id}', [BotigaController::class, "show"])->name("producte");
+
+/* ROUTES CHECKOUT */
+Route::get('/checkout', [CheckoutController::class, "index"])->name("checkout");
+
