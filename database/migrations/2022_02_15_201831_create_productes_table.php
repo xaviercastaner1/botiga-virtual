@@ -21,16 +21,16 @@ return new class extends Migration
             $table->integer('descompte');
             $table->integer('stock');
 
-            $table->integer('id_proveidor');
-            $table->foreignId('id_proveidor')
-                    ->constrained('proveidors')
-                    ->onUpdate('cascade')
+            $table->unsignedBigInteger('id_proveidor');
+            $table->foreign('id_proveidor')
+                    ->references('id')
+                    ->on('proveidors')
                     ->onDelete('cascade');
 
-            $table->integer('id_categoria');
-            $table->foreignId('id_categoria')
-                    ->constrained('categories')
-                    ->onUpdate('cascade')
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')
+                    ->references('id')
+                    ->on('categories')
                     ->onDelete('cascade');
 
             $table->timestamps();

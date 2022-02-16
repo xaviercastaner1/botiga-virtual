@@ -19,16 +19,16 @@ return new class extends Migration
             $table->date('data_compra');
             $table->date('data_entrega');
 
-            $table->integer('id_client');
-            $table->foreignId('id_client')
-                    ->constrained('clients')
-                    ->onUpdate('cascade')
+            $table->unsignedBigInteger('id_client');
+            $table->foreign('id_client')
+                    ->references('id')
+                    ->on('clients')
                     ->onDelete('cascade');
 
-            $table->integer('id_producte');
+            $table->unsignedBigInteger('id_producte');
             $table->foreign('id_producte')
-                    ->constrained('productes')
-                    ->onUpdate('cascade')
+                    ->references('id')
+                    ->on('productes')
                     ->onDelete('cascade');
 
             $table->timestamps();
