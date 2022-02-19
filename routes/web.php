@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotigaController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProducteController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,13 @@ Route::get('/', function () {
 
 /* ROUTES BOTIGA */
 Route::get('/botiga', [BotigaController::class, "index"])->name("botiga");
-Route::get('/producte/{id}', [BotigaController::class, "show"])->name("producte");
+
+/* ROUTES PRODUCTE */
+Route::get('/producte/{id}', [ProducteController::class, "show"])->name("producte");
+
+/* ROUTES CATEGORIA */
+Route::get('/categories', [CategoriaController::class, "index"])->name("categories");
+Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria");
 
 /* ROUTES CHECKOUT */
 Route::get('/checkout', [CheckoutController::class, "index"])->name("checkout");

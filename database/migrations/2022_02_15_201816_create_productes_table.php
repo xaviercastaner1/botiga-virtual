@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('descripcio');
+            $table->string('imatge');
             $table->integer('preu');
             $table->integer('descompte');
             $table->integer('stock');

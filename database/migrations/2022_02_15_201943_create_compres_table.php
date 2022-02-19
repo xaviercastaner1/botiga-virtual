@@ -25,11 +25,7 @@ return new class extends Migration
                     ->on('clients')
                     ->onDelete('cascade');
 
-            $table->unsignedBigInteger('id_producte');
-            $table->foreign('id_producte')
-                    ->references('id')
-                    ->on('productes')
-                    ->onDelete('cascade');
+            $table->json('productes');
 
             $table->timestamps();
         });
