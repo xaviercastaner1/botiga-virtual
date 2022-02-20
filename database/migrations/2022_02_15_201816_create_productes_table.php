@@ -15,22 +15,22 @@ return new class extends Migration
     {
         Schema::create('productes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nom');
             $table->string('descripcio');
             $table->string('imatge');
             $table->integer('preu');
             $table->integer('descompte');
             $table->integer('stock');
 
-            $table->unsignedBigInteger('id_proveidor');
-            $table->foreign('id_proveidor')
-                    ->references('id')
+            $table->string('proveidor');
+            $table->foreign('proveidor')
+                    ->references('nom')
                     ->on('proveidors')
                     ->onDelete('cascade');
 
-            $table->unsignedBigInteger('id_categoria');
-            $table->foreign('id_categoria')
-                    ->references('id')
+            $table->string('categoria');
+            $table->foreign('categoria')
+                    ->references('nom')
                     ->on('categories')
                     ->onDelete('cascade');
 

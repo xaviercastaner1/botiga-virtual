@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('proveidors', function (Blueprint $table) {
-            $table->id();
             $table->string('nom');
+            $table->primary('nom')->unique();
             $table->string('telefon');
             $table->string('direccio');
             $table->string('email');

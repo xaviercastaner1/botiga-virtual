@@ -5,6 +5,7 @@ use App\Http\Controllers\BotigaController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProducteController;
 use App\Http\Controllers\CategoriaController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +22,19 @@ Route::get('/', function () {
     return view('home');
 });
 
-/* ROUTES BOTIGA */
-Route::get('/botiga', [BotigaController::class, "index"])->name("botiga");
-
 /* ROUTES PRODUCTE */
-Route::get('/producte/{id}', [ProducteController::class, "show"])->name("producte");
+Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
+Route::get('/productes/{id}', [ProducteController::class, "show"])->name("producte.show");
+
+Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 
 /* ROUTES CATEGORIA */
-Route::get('/categories', [CategoriaController::class, "index"])->name("categories");
-Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria");
+Route::get('/categories', [CategoriaController::class, "index"])->name("categoria.index");
+Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria.show");
 
 /* ROUTES CHECKOUT */
 Route::get('/checkout', [CheckoutController::class, "index"])->name("checkout");
 
+
+Auth::routes(['register' => false]);
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

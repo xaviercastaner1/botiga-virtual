@@ -1,6 +1,11 @@
-@extends('template')
-@section('title', 'Home')
+@extends('layouts.app')
 
 @section('content')
-    <h1>HOME</h1>
-@stop
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>HOME</h1>
+        </div>
+    </div>
+</div>
+@endsection

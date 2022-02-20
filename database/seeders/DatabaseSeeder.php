@@ -16,7 +16,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ProveidorTableSeeder::class);
-
         $this->command->info('Proveidor table seeded!');
+
+        $this->call(CategoriaTableSeeder::class);
+        $this->command->info('Categoria table seeded!');
+
+        $this->call(ProducteTableSeeder::class);
+        $this->command->info('Producte table seeded!');
+
     }
 }

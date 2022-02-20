@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.app')
 @section('title', 'Categories')
 @section('content')
 <h1>CATEGORIES</h1>
