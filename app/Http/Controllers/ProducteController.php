@@ -11,20 +11,24 @@ class ProducteController extends Controller
     public function index()
     {
 
-        $proveidors_filtres = request('proveidors_filtres');
+        $proveidors = Proveidor::all()->pluck('nom')->toArray();
+
+        
+
+        $proveidors_filtres = request('proveidors_filtres') ?? $proveidors;
         
         $countProductes = count(Producte::all());
         $items = request('items') ?? 8;
 
-        $productes = Producte::where('proveidor', 'HUAWEI')->paginate($items);
+        $productes = Producte::whereIn('proveidor', $proveidors_filtres)->paginate($items);
 
-        $proveidors = Proveidor::all()->pluck('nom');
 
         return view('productes.productes', compact(
             'productes',
             'countProductes',
             'items',
-            'proveidors'
+            'proveidors',
+            'proveidors_filtres'
         ));
     }
 

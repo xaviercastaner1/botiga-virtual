@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Productes')
+@section('title', ' - Productes')
 
 @section('content')
     
@@ -48,7 +48,10 @@
             <form action="{{ route('producte.index') }}" method="GET">
             
             @foreach($proveidors as $proveidor)
-                <input type="checkbox" name="proveidors_filtres[]" value="{{$proveidor}}"> {{$proveidor}}<br />
+                <input type="checkbox" 
+                name="proveidors_filtres[]" 
+                {{ in_array($proveidor, $proveidors_filtres) ? 'checked' : '' }} 
+                value="{{$proveidor}}"> {{$proveidor}} <br />
             @endforeach
 
                 <button type="submit" class="btn btn-primary">SUBMIT</button>
