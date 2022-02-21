@@ -11286,16 +11286,21 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between {
-  justify-content: center !important;
-  gap: 20px;
-}
-
 .productes {
   width: 90%;
 }
 
 .producte {
-  background-color: #d8d8d8;
+  background-color: rgba(255, 248, 143, 0.4);
   padding: 20px;
+}
+
+.producte-a {
+  text-decoration: none;
+  color: black;
+  font-weight: 700 !important;
+}
+
+.producte-nom {
+  display: inline-block;
 }

@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background-color: rgb(255, 248, 143)!important">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-4" style="background-color: rgb(255, 240, 101)!important">
             <div class="container" style="margin-left: 40px!important; margin-right: 40px!important">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div class="d-flex">

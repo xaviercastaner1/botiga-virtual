@@ -1,15 +1,18 @@
-
-//BOOTSTRAP PAGINATION CENTER
-.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between {
-    justify-content: center!important;
-    gap: 20px;
-}
-
 .productes {
     width: 90%;
 }
 
 .producte {
-    background-color: rgb(216, 216, 216);
+    background-color: rgb(255, 248, 143, 0.4);
     padding: 20px;
+}
+
+.producte-a {
+    text-decoration: none;
+    color: black;
+    font-weight: 700!important;
+}
+
+.producte-nom {
+    display: inline-block;
 }
