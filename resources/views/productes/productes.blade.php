@@ -3,7 +3,7 @@
 @section('title', ' - Productes')
 
 @section('content')
-    
+
     <div class="row">
 
         <div class="col-9">
@@ -16,7 +16,7 @@
                     </a>
 
                     <div class="d-flex">
-                        
+
                         <a href="{{ route('producte.show', $producte->id) }}" class="producte-a">
 
                             <img src="{{ $producte->imatge }}"
@@ -31,7 +31,7 @@
                             <h4>Preu: {{ $producte->preu }}€</h4>
                             <p>Unitats restants: {{ $producte->stock }}</p>
                         </div>
-                    
+
                     </div>
 
 
@@ -40,22 +40,53 @@
 
             </div>
         </div>
-             
+
         <div class="col">
             <h1>FILTRES</h1>
             <hr>
 
-            <form action="{{ route('producte.index') }}" method="GET">
-            
+            <form action="{{ route('producte.index') }}" method="POST" id="form-filtres">
+            @csrf
+            <h3>Proveidor: </h3>
             @foreach($proveidors as $proveidor)
-                <input type="checkbox" 
-                name="proveidors_filtres[]" 
-                {{ in_array($proveidor, $proveidors_filtres) ? 'checked' : '' }} 
+                <input type="checkbox"
+                name="filtres_proveidors[]"
+                {{ in_array($proveidor, $filtres_proveidors) ? 'checked' : '' }}
                 value="{{$proveidor}}"> {{$proveidor}} <br />
             @endforeach
 
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
-            
+            <hr>
+            <h3>Categoria: </h3>
+            @foreach($categories as $categoria)
+                <input type="checkbox"
+                name="filtres_categories[]"
+                {{ in_array($categoria, $filtres_categories) ? 'checked' : '' }}
+                value="{{$categoria}}"> {{$categoria}} <br />
+            @endforeach
+
+            <hr>
+            <div class="form-group w-50">
+                <label for="preu-maxim" class="form-label">Preu màxim: </label>
+                <input type="range" class="form-range"
+                min="5" max="100" step="5" value="{{ $filtres_preuMaxim ?? 100 }}"
+                id="preu-maxim" name="preu-maxim"
+                oninput="document.querySelector('#preu-final').innerHTML = this.value">
+                <p id="preu-final">{{ $filtres_preuMaxim ?? '' }}</p>
+            </div>
+
+                <div class="d-flex gap-3">
+                    <button type="submit"
+                    name="filtres-action"
+                    value="submit"
+                    class="btn btn-primary">SUBMIT</button>
+
+                    <button type="submit"
+                    name="filtres-action"
+                    value="reset"
+                    class="btn btn-warning">RESET</button>
+                </div>
+
+
             </form>
 
         </div>
@@ -66,24 +97,20 @@
         {{ $productes->links('pagination::bootstrap-5') }}
     </div>
 
-    <div class="pagination-form mt-4">
+    {{--<div class="pagination-form mt-4">
         <form action="{{ route('productes.index') }}" method="POST" class="d-flex justify-content-center gap-4">
         @csrf
-        <h3>Items per pàgina: </h3>
+            <h3>Items per pàgina: </h3>
             <select name="items" onchange="this.form.submit()">
 
                 @for($i = 1; $i < $countProductes / 2; $i++)
 
-                    @if($items == $i)
-                        <option selected value="{{$i}}">{{$i}}</option>
-                    @else
-                        <option value="{{$i}}">{{$i}}</option>
-                    @endif
+                    <option {{ ($items == $i) ? 'selected' : '' }} value="{{$i}}">{{$i}}</option>
 
                 @endfor
 
             </select>
         </form>
-    </div>
-    
+    </div>--}}
+
 @stop
