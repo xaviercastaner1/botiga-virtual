@@ -11291,8 +11291,9 @@ textarea.form-control-lg {
 }
 
 .producte {
-  background-color: rgba(255, 248, 143, 0.4);
+  background-color: white;
   padding: 20px;
+  min-width: 450px;
 }
 
 .producte-a {

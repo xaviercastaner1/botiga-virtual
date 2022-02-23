@@ -5,20 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Producte;
 use App\Models\Proveidor;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Http\Request;
 
 class ProducteController extends Controller
 {
     public function index()
     {
-
-        if (request('filtres-action') == 'reset') {
-            echo "RESET";
-        }
-
-        //var_dump(request()->all());
-
 
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
         $categories = Categoria::all()->pluck('nom')->toArray();
@@ -26,10 +17,11 @@ class ProducteController extends Controller
         $filtres_proveidors = request('filtres_proveidors') ?? $proveidors;
         $filtres_categories = request('filtres_categories') ?? $categories;
         $filtres_preuMaxim = request('preu-maxim') ?? 100;
+        $filtres_ordenar = request('filtres_ordenar') ?? 'nom';
+        $ordenar_method = request('ordenar_method') ?? 'ASC';
 
-        //MAYBE USE SESSION TO STORE FILTERS
-        /*session(['filtres_proveidors' => $filtres_proveidors]);
-        var_dump(session('filtres_proveidors'));*/
+        $columnes = ['Nom', 'Preu', 'Descompte', 'Proveidor'];
+        $methods = ["ASC" => "Ascendent", "DESC" => "Descendent"];
 
         $countProductes = count(Producte::all());
         $items = request('items') ?? 8;
@@ -37,6 +29,7 @@ class ProducteController extends Controller
         $productes = Producte::whereIn('proveidor', $filtres_proveidors)
                 ->whereIn('categoria', $filtres_categories)
                 ->where('preu', '<', $filtres_preuMaxim)
+                ->orderBy($filtres_ordenar, $ordenar_method)
                 ->paginate($items);
 
 
@@ -48,7 +41,9 @@ class ProducteController extends Controller
             'filtres_proveidors',
             'categories',
             'filtres_categories',
-            'filtres_preuMaxim'
+            'filtres_preuMaxim',
+            'columnes',
+            'methods'
         ));
     }
 
