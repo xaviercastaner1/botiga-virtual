@@ -11290,10 +11290,87 @@ textarea.form-control-lg {
   width: 90%;
 }
 
-.producte {
+.producte-container {
   background-color: white;
-  padding: 20px;
   min-width: 450px;
+  padding-right: 0 !important;
+}
+
+.producte-container-show {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  border: 1px solid black;
+}
+
+.producte-desc-show {
+  width: 70%;
+}
+
+.container {
+  padding: 20px;
+}
+
+.box {
+  position: relative;
+}
+
+/* common */
+.ribbon {
+  width: 115px;
+  height: 115px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  display: block;
+  border: 3px solid #1eb5ff;
+}
+
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 185px;
+  padding: 5px 0;
+  background-color: #ffcb1e;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: 0;
+  right: 0;
+}
+
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+
+.ribbon-top-right span {
+  left: -22px;
+  top: 30px;
+  transform: rotate(45deg);
+  text-align: center;
+}
+
+.producte-desc {
+  margin-right: 35px;
 }
 
 .producte-a {
@@ -11304,4 +11381,19 @@ textarea.form-control-lg {
 
 .producte-nom {
   display: inline-block;
+  margin-top: 10px;
+}
+
+#form-filtres {
+  padding-left: 15px;
+}
+
+@media all and (max-width: 1570px) {
+  .order-select {
+    display: block !important;
+  }
+
+  .order-method-checkbox {
+    margin-top: 10px;
+  }
 }

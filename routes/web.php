@@ -5,6 +5,7 @@ use App\Http\Controllers\BotigaController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProducteController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CookieController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,6 +26,7 @@ Route::get('/', function () {
 /* ROUTES PRODUCTE */
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
 Route::get('/productes/{id}', [ProducteController::class, "show"])->name("producte.show");
+Route::post('/productes/{id}', [ProducteController::class, "store"])->name("producte.store");
 
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 
@@ -38,3 +40,6 @@ Route::get('/checkout', [CheckoutController::class, "index"])->name("checkout");
 
 Auth::routes(['register' => false]);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/cookie/set', [CookieController::class, "setCookie"]);
+Route::get('/cookie/get', [CookieController::class, "getCookie"]);

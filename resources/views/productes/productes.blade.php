@@ -9,31 +9,37 @@
         <div class="col-9">
             <div class="row ms-5 gap-5 productes">
             @foreach($productes as $producte)
-                <div class="producte col">
+                <div class="producte-container col">
 
-                    <a href="{{ route('producte.show', $producte->id) }}">
-                        <h3 class="producte-nom">{{ $producte->nom }} - {{ $producte->proveidor }}</h3>
-                    </a>
-
-                    <div class="d-flex">
-
-                        <a href="{{ route('producte.show', $producte->id) }}" class="producte-a">
-
-                            <img src="{{ $producte->imatge }}"
-                            alt="{{ $producte->nom }}"
-                            width="200">
-
-                        </a>
-
-                        <div class="producte-info ms-4 mt-2">
-                            <div class="descompte">{{ $producte->descompte }}%</div>
-                            <p class="mt-2">{{ $producte->descripcio }}</p>
-                            <h4>Preu: {{ $producte->preu }}€</h4>
-                            <p>Unitats restants: {{ $producte->stock }}</p>
-                        </div>
-
+                    <div class="box">
+                        <div class="ribbon ribbon-top-right"><span>{{$producte->descompte}}%</span></div>
                     </div>
 
+                    <div class="producte">
+                        <a href="{{ route('producte.show', $producte->id) }}">
+                            <h3 class="producte-nom">{{ $producte->nom }} - {{ $producte->proveidor }}</h3>
+                        </a>
+
+                        <div class="d-flex">
+
+                            <a href="{{ route('producte.show', $producte->id) }}" 
+                            class="producte-a">
+
+                                <img src="{{ $producte->imatge }}"
+                                alt="{{ $producte->nom }}"
+                                width="200"
+                                class="producte-img">
+
+                            </a>
+
+                            <div class="producte-info ms-4 mt-2">
+                                <p class="mt-2 producte-desc">{{ $producte->descripcio }}</p>
+                                <h4>Preu: {{ $producte->preu }}€</h4>
+                                <p>Unitats restants: {{ $producte->stock }}</p>
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
             @endforeach
@@ -44,7 +50,7 @@
         <div class="col">
 
             <form action="{{ route('producte.index') }}"
-            method="POST" id="form-filtres" class="w-75">
+            method="GET" id="form-filtres" class="w-75">
             @csrf
                 <h1>FILTRES</h1>
 
@@ -78,8 +84,8 @@
 
                 <hr>
                 <h3>Ordenar per:</h3>
-                <div class="d-flex justify-content-left gap-5">
-                    <div class="d-flex flex-column-justify-content-center">
+                <div class="d-flex justify-content-left gap-5 order-select">
+                    <div class="d-flex flex-column justify-content-center">
                         <select name="filtres_ordenar" class="form-select">
                         @foreach($columnes as $columna)
                             <option value="{{strtolower($columna)}}"
@@ -90,7 +96,7 @@
                         </select>
                     </div>
 
-                    <div class="d-block">
+                    <div class="order-method-checkbox">
                     @foreach($methods as $method => $method_title)
                         <input type="radio" name="ordenar_method"
                         value="{{$method}}"
@@ -118,21 +124,5 @@
     <div class="paginator mx-auto mt-5">
         {{ $productes->links('pagination::bootstrap-5') }}
     </div>
-
-    {{--<div class="pagination-form mt-4">
-        <form action="{{ route('productes.index') }}" method="POST" class="d-flex justify-content-center gap-4">
-        @csrf
-            <h3>Items per pàgina: </h3>
-            <select name="items" onchange="this.form.submit()">
-
-                @for($i = 1; $i < $countProductes / 2; $i++)
-
-                    <option {{ ($items == $i) ? 'selected' : '' }} value="{{$i}}">{{$i}}</option>
-
-                @endfor
-
-            </select>
-        </form>
-    </div>--}}
 
 @stop

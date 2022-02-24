@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Producte;
 use App\Models\Proveidor;
+use Illuminate\Http\Client\Request;
 
 class ProducteController extends Controller
 {
-    public function index()
-    {
+
+    public function index() {
+
 
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
         $categories = Categoria::all()->pluck('nom')->toArray();
@@ -47,9 +49,9 @@ class ProducteController extends Controller
         ));
     }
 
-    public function show($id)
-    {
+    public function show($id) {   
         $producte = Producte::findOrFail($id);
         return view("productes.producte", compact('producte'));
     }
+
 }
