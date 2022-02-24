@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BotigaController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContacteController;
 use App\Http\Controllers\ProducteController;
+use App\Http\Controllers\CarretController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CookieController;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
+/* ROUTES CONTACTE */
+Route::get('/contacte', [ContacteController::class, "index"])->name("contacte.index");
 
 /* ROUTES PRODUCTE */
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
@@ -34,11 +37,12 @@ Route::post('/productes', [ProducteController::class, "index"])->name('productes
 Route::get('/categories', [CategoriaController::class, "index"])->name("categoria.index");
 Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria.show");
 
-/* ROUTES CHECKOUT */
-Route::get('/checkout', [CheckoutController::class, "index"])->name("checkout");
+/* ROUTES CARRET */
+Route::get('/carret', [CarretController::class, "index"])->name("carret.index");
+Route::get('/carret/{id}', [CarretController::class, "show"])->name("carret.show");
+Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.store");
 
-
-Auth::routes(['register' => false]);
+Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/cookie/set', [CookieController::class, "setCookie"]);

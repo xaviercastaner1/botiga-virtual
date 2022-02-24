@@ -10,8 +10,8 @@
                 </div>
 
                 <div class="producte">
-                    <div>
-                        <h3 class="producte-nom">{{ $producte->nom }} - {{ $producte->proveidor }}</h3>
+                    <div class="mt-3 ms-4">
+                        <h1 class="producte-nom">{{ $producte->nom }} - {{ $producte->proveidor }}</h1>
                     </div>
 
                     <div class="d-flex">
@@ -32,15 +32,30 @@
 
                             <hr class="w-75">
                             <div class="unitats-form">
-                                <form action="{{ route('productes.store') }}"
+                                <form action="{{ route('carret.store', ['id' => $producte->id]) }}"
                                 method="POST">
-                                
+                                @csrf
+                                    <div class="d-flex gap-3">
+                                        <input type="hidden" id="preu" value="{{$producte->preu}}">
+
+                                        <input type="number" min="1" max="{{$producte->stock}}"
+                                        value="1" name="unitats" class="form-control" style="width: 70px"
+                                        oninput="document.querySelector('.resultat').innerHTML = `${(this.value * document.querySelector('#preu').value)}€`">
+                                        <button class="btn btn-primary d-flex justify-content-center"
+                                        style="width: 80px">
+                                            <img src="{{asset('assets/shopping-cart.png')}}"
+                                            width="25" class="carret-icon">
+                                        </button>
+                                    </div>
+
+                                    <div class="total-multiplied-unitats mt-4">
+                                        <h4>Total: <span class="resultat">{{$producte->preu}}€</span></h4>
+                                    </div>
+
                                 </form>
                             </div>
 
                         </div>
-
-
 
                     </div>
 
@@ -48,9 +63,11 @@
 
             </div>
         </div>
-        
-    <a href="{{ url()->previous() }}">Tornar als productes</a>
+
+    <a href="{{ url()->previous() }}">
+        <h3 class="mt-4">Tornar als productes</h3>
+    </a>
     </div>
-    
+
 
 @stop

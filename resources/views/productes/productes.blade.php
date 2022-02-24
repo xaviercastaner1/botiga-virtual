@@ -6,6 +6,11 @@
 
     <div class="row">
 
+    @isset($msg)
+        <div class="alert alert-success" role="alert">
+            {{$msg}}
+        </div>
+    @endisset
         <div class="col-9">
             <div class="row ms-5 gap-5 productes">
             @foreach($productes as $producte)
@@ -22,7 +27,7 @@
 
                         <div class="d-flex">
 
-                            <a href="{{ route('producte.show', $producte->id) }}" 
+                            <a href="{{ route('producte.show', $producte->id) }}"
                             class="producte-a">
 
                                 <img src="{{ $producte->imatge }}"
