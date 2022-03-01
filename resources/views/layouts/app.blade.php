@@ -26,7 +26,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-4" style="background-color: rgb(255, 240, 101)!important">
-            <div class="container" style="margin-left: 40px!important; margin-right: 40px!important">
+            <div class="d-flex justify-content-center w-100" style="padding-left: 40px; padding-right: 40px">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div class="d-flex">
                         <div class="d-flex flex-column justify-content-center">
@@ -49,6 +49,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -62,6 +63,7 @@
                                 </li>
                             @endif
                         @else
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -79,6 +81,14 @@
                                     </form>
                                 </div>
                             </li>
+
+                            <div>
+                                <a href="{{route('carret.index')}}" style="margin-right: 20px"
+                                class="carret-header">
+                                    <img src="{{asset('assets/shopping-cart.png')}}" width="40">
+                                </a>
+                            </div>
+
                         @endguest
                     </ul>
                 </div>

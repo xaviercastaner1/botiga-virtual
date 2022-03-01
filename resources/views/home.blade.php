@@ -4,8 +4,8 @@
 <div class="container">
    <div class="row">
       <div class="col-md-4">
-         <div class="card text-white card-has-bg click-col" style="background-image:url('{{asset('assets/shopping.jpg')}}');">
-            <img class="card-img d-none" src="{{asset('assets/shopping.jpg')}}" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+         <div class="card text-white card-has-bg click-col" style="background-image:url('{{asset('assets/home.jpg')}}');">
+            <img class="card-img d-none" src="{{asset('assets/home.jpg')}}" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
             <div class="card-img-overlay d-flex flex-column">
                <div class="card-body">
                   <small class="card-meta mb-2">Recursivitat</small>
@@ -35,8 +35,8 @@
          </div>
       </div>
       <div class="col-md-4">
-         <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?computer,design');">
-            <img class="card-img d-none" src="https://source.unsplash.com/600x900/?computer,design" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+         <div class="card text-white card-has-bg click-col" style="background-image:url('{{asset('assets/contacto.jpg')}}');">
+            <img class="card-img d-none" src="{{asset('assets/contacto.jpg')}}" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
             <div class="card-img-overlay d-flex flex-column">
                <div class="card-body">
                   <small class="card-meta mb-2">Tens cap dubte?</small>

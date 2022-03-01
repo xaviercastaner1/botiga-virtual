@@ -25,7 +25,7 @@
 
                         </div>
 
-                        <div class="producte-info ms-4 mt-2">
+                        <div class="producte-info ms-5 mt-2">
                             <p class="mt-2 producte-desc producte-desc-show">{{ $producte->descripcio }}</p>
                             <h4>Preu: {{ $producte->preu }}€</h4>
                             <p>Unitats restants: {{ $producte->stock }}</p>
@@ -42,10 +42,13 @@
                                         value="1" name="unitats" class="form-control" style="width: 70px"
                                         oninput="document.querySelector('.resultat').innerHTML = `${(this.value * document.querySelector('#preu').value)}€`">
                                         <button class="btn btn-primary d-flex justify-content-center"
-                                        style="width: 80px">
+                                        style="width: 80px"
+                                        {{ !Auth::check() ? 'disabled' : '' }}>
                                             <img src="{{asset('assets/shopping-cart.png')}}"
                                             width="25" class="carret-icon">
                                         </button>
+                                        <small>{{ !Auth::check() ? 'Has d\'estar loguejat per afegir productes' : '' }}</small>
+
                                     </div>
 
                                     <div class="total-multiplied-unitats mt-4">

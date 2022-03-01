@@ -23,13 +23,16 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
 /* ROUTES CONTACTE */
 Route::get('/contacte', [ContacteController::class, "index"])->name("contacte.index");
 
 /* ROUTES PRODUCTE */
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
 Route::get('/productes/{id}', [ProducteController::class, "show"])->name("producte.show");
-Route::post('/productes/{id}', [ProducteController::class, "store"])->name("producte.store");
 
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 
@@ -41,6 +44,7 @@ Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->nam
 Route::get('/carret', [CarretController::class, "index"])->name("carret.index");
 Route::get('/carret/{id}', [CarretController::class, "show"])->name("carret.show");
 Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.store");
+Route::post('/carret/destroy/{id}', [CarretController::class, "destroy"])->name("carret.destroy");
 
 Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

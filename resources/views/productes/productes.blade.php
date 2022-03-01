@@ -5,13 +5,15 @@
 @section('content')
 
     <div class="row">
-
-    @isset($msg)
-        <div class="alert alert-success" role="alert">
-            {{$msg}}
-        </div>
-    @endisset
         <div class="col-9">
+
+            @if(Session::has('return'))
+                <div class="w-25 ms-5 alert {{ Session::get('return')['alert'] }}">
+                    {{Session::get('return')['msg']}}
+                </div>
+                {{ Session::forget('return') }}
+            @endif
+
             <div class="row ms-5 gap-5 productes">
             @foreach($productes as $producte)
                 <div class="producte-container col">

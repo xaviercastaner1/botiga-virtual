@@ -16,14 +16,20 @@ return new class extends Migration
         Schema::create('carrets', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')
                 ->references('id')
-                ->on('clients')
+                ->on('users')
                 ->onDelete('cascade');
 
-            $table->json('productes');
-            
+            $table->unsignedBigInteger('id_producte');
+            $table->foreign('id_producte')
+                ->references('id')
+                ->on('productes')
+                ->onDelete('cascade');
+
+            $table->integer('unitats');
+
             $table->timestamps();
         });
     }

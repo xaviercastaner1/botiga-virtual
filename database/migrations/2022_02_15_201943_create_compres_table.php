@@ -19,10 +19,10 @@ return new class extends Migration
             $table->date('data_compra');
             $table->date('data_entrega');
 
-            $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')
                     ->references('id')
-                    ->on('clients')
+                    ->on('users')
                     ->onDelete('cascade');
 
             $table->json('productes');

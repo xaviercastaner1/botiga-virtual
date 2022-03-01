@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Producte;
 use App\Models\Proveidor;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\Console\Input\Input;
 
 
@@ -13,8 +14,7 @@ class ProducteController extends Controller
 {
 
     public function index() {
-
-
+        //Session::flush();
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
         $categories = Categoria::all()->pluck('nom')->toArray();
 
