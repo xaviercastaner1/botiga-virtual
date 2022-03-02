@@ -66,7 +66,7 @@
                 @foreach($proveidors as $proveidor)
                     <input type="checkbox"
                     name="filtres_proveidors[]"
-                    {{ in_array($proveidor, Session::get("filtres.proveidors")) ? 'checked' : '' }}
+                    {{ in_array($proveidor, $filtres_proveidors) ? 'checked' : '' }}
                     value="{{$proveidor}}"> {{$proveidor}} <br />
                 @endforeach
 
@@ -75,18 +75,18 @@
                 @foreach($categories as $categoria)
                     <input type="checkbox"
                     name="filtres_categories[]"
-                    {{ in_array($categoria, Session::get("filtres.categories")) ? 'checked' : '' }}
+                    {{ in_array($categoria, $filtres_categories) ? 'checked' : '' }}
                     value="{{$categoria}}"> {{$categoria}} <br />
                 @endforeach
 
                 <hr>
                 <div class="form-group w-50">
-                    <label for="preu-maxim" class="form-label"><h4>Preu màxim:</h4></label>
+                    <label for="filtres_preu_maxim" class="form-label"><h4>Preu màxim:</h4></label>
                     <input type="range" class="form-range"
-                    min="5" max="100" step="5" value="{{ Session::get('filtres.preuMaxim') ?? 100 }}"
-                    id="preu-maxim" name="preu-maxim"
+                    min="5" max="100" step="5" value="{{ $filtres_preu_maxim ?? 100 }}"
+                    id="filtres_preu_maxim" name="filtres_preu_maxim"
                     oninput="document.querySelector('#preu-final').innerHTML = this.value">
-                    <h4 id="preu-final">{{ Session::get("filtres.preuMaxim") ?? '' }}</h4>
+                    <h4 id="preu-final">{{ $filtres_preu_maxim ?? '' }}</h4>
                 </div>
 
                 <hr>
@@ -96,7 +96,7 @@
                         <select name="filtres_ordenar" class="form-select">
                         @foreach($columnes as $columna)
                             <option value="{{strtolower($columna)}}"
-                            {{ Session::get("filtres.ordenar") == strtolower($columna) ? 'selected' : ''}}
+                            {{ $filtres_ordenar == strtolower($columna) ? 'selected' : ''}}
                             >{{$columna}}</option>
                         @endforeach
 
@@ -107,7 +107,7 @@
                     @foreach($methods as $method => $method_title)
                         <input type="radio" name="ordenar_method"
                         value="{{$method}}"
-                        {{ Session::get("filtres.ordenar_method") == $method ? 'checked' : '' }}
+                        {{ $ordenar_method == $method ? 'checked' : '' }}
                         >{{$method_title}}<br/>
                     @endforeach
                     </div>
@@ -129,7 +129,13 @@
     </div>
 
     <div class="paginator mx-auto mt-5">
-        {{ $productes->links('pagination::bootstrap-5') }}
+        {{ $productes->appends([
+            'filtres_proveidors' => $filtres_proveidors,
+            'filtres_categories' => $filtres_categories,
+            'filtres_preu_maxim' => $filtres_preu_maxim,
+            'filtres_ordenar' => $filtres_ordenar,
+            'ordenar_method' => $ordenar_method
+            ])->links('pagination::bootstrap-5') }}
     </div>
 
 @stop

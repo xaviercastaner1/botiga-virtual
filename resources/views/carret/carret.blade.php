@@ -55,8 +55,12 @@
 
     @endforeach
 
-    <a href="{{ route('productes.index') }}">
-        <h3 class="mt-4">Tornar als productes</h3>
+    <a href="">
+        <button type="button" class="btn btn-warning mt-3">COMPRAR</button>
+    </a>
+
+    <a href="{{ Session::get('previous_productes_url') }}">
+        <h3 class="mt-5">Tornar als productes</h3>
     </a>
     </div>
 

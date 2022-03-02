@@ -36,10 +36,6 @@ Route::get('/productes/{id}', [ProducteController::class, "show"])->name("produc
 
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 
-/* ROUTES CATEGORIA */
-Route::get('/categories', [CategoriaController::class, "index"])->name("categoria.index");
-Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria.show");
-
 /* ROUTES CARRET */
 Route::get('/carret', [CarretController::class, "index"])->name("carret.index")
 ->middleware('userIsLogged');

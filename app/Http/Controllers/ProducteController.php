@@ -16,29 +16,18 @@ class ProducteController extends Controller
     public function index() {
         //Session::flush();
 
-        if(!Session::has('filtres')) {
-            Session::put('filtres', []);
-        }
-
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
         $categories = Categoria::all()->pluck('nom')->toArray();
 
-        VarDumper::dump(request()->all());
-
         $filtres_proveidors = request('filtres_proveidors') ?? $proveidors;
-        Session::put("filtres.proveidors", $filtres_proveidors);
 
         $filtres_categories = request('filtres_categories') ?? $categories;
-        Session::put("filtres.categories", $filtres_categories);
 
-        $filtres_preuMaxim = request('preu-maxim') ?? 100;
-        Session::put("filtres.preuMaxim", $filtres_preuMaxim);
-        
+        $filtres_preu_maxim = request('filtres_preu_maxim') ?? 100;
+
         $filtres_ordenar = request('filtres_ordenar') ?? 'nom';
-        Session::put("filtres.ordenar", $filtres_ordenar);
 
         $ordenar_method = request('ordenar_method') ?? 'ASC';
-        Session::put("filtres.ordenar_method", $ordenar_method);
 
         $columnes = ['Nom', 'Preu', 'Descompte', 'Proveidor'];
         $methods = ["ASC" => "Ascendent", "DESC" => "Descendent"];
@@ -46,16 +35,11 @@ class ProducteController extends Controller
         $countProductes = count(Producte::all());
         $items = request('items') ?? 8;
 
-        $productes = Producte::whereIn('proveidor', Session::get("filtres.proveidors") ?? $filtres_proveidors)
-                ->whereIn('categoria', Session::get("filtres.categories") ?? $filtres_categories)
-                ->where('preu', '<', Session::get("filtres.preuMaxim") ?? $filtres_preuMaxim)
-                ->orderBy(
-                    Session::get("filtres.ordenar") ?? $filtres_ordenar, 
-                    Session::get("filtres.ordenar_method") ?? $ordenar_method
-                )
+        $productes = Producte::whereIn('proveidor', $filtres_proveidors)
+                ->whereIn('categoria', $filtres_categories)
+                ->where('preu', '<', $filtres_preu_maxim)
+                ->orderBy($filtres_ordenar, $ordenar_method)
                 ->paginate($items);
-
-        VarDumper::dump(Session::get('filtres'));
 
 
         return view('productes.productes', compact(
@@ -63,10 +47,12 @@ class ProducteController extends Controller
             'countProductes',
             'items',
             'proveidors',
-            'filtres_proveidors',
             'categories',
+            'filtres_proveidors',
             'filtres_categories',
-            'filtres_preuMaxim',
+            'filtres_preu_maxim',
+            'filtres_ordenar',
+            'ordenar_method',
             'columnes',
             'methods'
         ));
@@ -74,6 +60,7 @@ class ProducteController extends Controller
 
     public function show($id) {
         $producte = Producte::findOrFail($id);
+        Session::put('previous_productes_url', url()->previous());
         return view("productes.producte", compact('producte'));
     }
 

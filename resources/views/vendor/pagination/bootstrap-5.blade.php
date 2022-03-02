@@ -1,5 +1,14 @@
 @if ($paginator->hasPages())
-    {{--@php
+    {{--
+
+        /*
+            ********************************
+            THE FOLLOWING DOES EXACTLY THE SAME AS THE ->append() METHOD
+            AM I A GENIUS? OH MY GOD I AM
+            ********************************
+        */
+
+    @php
         $params = '';
     @endphp
 
@@ -23,6 +32,8 @@
         $params = preg_replace("/&page=[0-9]/i", "", $params);
         Session::put('params', $params);
     @endphp--}}
+
+
     <nav class="d-flex justify-items-center justify-content-between">
         <div class="d-flex justify-content-between flex-fill d-sm-none">
             <ul class="pagination">
