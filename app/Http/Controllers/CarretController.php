@@ -9,18 +9,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Console\Input\Input;
+use Symfony\Component\VarDumper\VarDumper;
 
 class CarretController extends Controller
 {
     public function index() {
 
+        //Session::flush();
+
+        
+
         $carret = Session::get('carret') ?? [];
         $items = [];
 
-        foreach($carret as $item) {
+        foreach($carret as $id => $item) {
             $items[] = [
-                'producte' => Producte::findOrFail($item['id_producte']),
-                'unitats' => $item['unitats']
+                'producte' => Producte::findOrFail($id),
+                'unitats' => $item[0]['unitats']
             ];
 
         }
@@ -35,6 +40,7 @@ class CarretController extends Controller
 
     public function store($id) {
 
+
         if(Auth::check()) {
 
             $unitats = request('unitats') ?? 1;
@@ -44,10 +50,7 @@ class CarretController extends Controller
                 Session::put('carret', []);
             }
 
-            Session::push("carret", [
-                'id_producte' => $id,
-                'unitats' => $unitats
-            ]);
+            Session::push("carret.$id", ['unitats' => $unitats]);
 
             Session::put('return', [
                 'msg' => 'Producte agregat correctament.',
@@ -61,6 +64,24 @@ class CarretController extends Controller
     }
 
     public function destroy($id) {
-        Session::forget("carret.$id");
+
+        $result = false;
+        foreach(Session::get('carret') as $id_producte => $item) {
+
+            if(intval($id_producte) == $id) {
+                
+                $result = Session::forget("carret.$id");
+                
+            }
+        }
+
+        if($result) {
+            Session::put('return', [
+                'msg' => $result ? 'Producte eliminat correctament.' : 'Error eliminant producte.',
+                'alert' => $result ? 'alert-success' : 'alert-warning'
+            ]);
+        }
+
+        return redirect()->route('carret.index');
     }
 }

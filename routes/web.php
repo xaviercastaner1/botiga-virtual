@@ -41,10 +41,14 @@ Route::get('/categories', [CategoriaController::class, "index"])->name("categori
 Route::get('/categories/{categoria}', [CategoriaController::class, "show"])->name("categoria.show");
 
 /* ROUTES CARRET */
-Route::get('/carret', [CarretController::class, "index"])->name("carret.index");
-Route::get('/carret/{id}', [CarretController::class, "show"])->name("carret.show");
-Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.store");
-Route::post('/carret/destroy/{id}', [CarretController::class, "destroy"])->name("carret.destroy");
+Route::get('/carret', [CarretController::class, "index"])->name("carret.index")
+->middleware('userIsLogged');
+Route::get('/carret/{id}', [CarretController::class, "show"])->name("carret.show")
+->middleware('userIsLogged');
+Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.store")
+->middleware('userIsLogged');
+Route::post('/carret/destroy/{id}', [CarretController::class, "destroy"])->name("carret.destroy")
+->middleware('userIsLogged');
 
 Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

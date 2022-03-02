@@ -8,7 +8,7 @@
 
     @foreach($items as $item)
         <div class="d-flex gap-4">
-            <div class="producte-container mb-2 w-75">
+            <div class="producte-container mb-4 w-75">
 
                 <div class="box">
                     <div class="ribbon ribbon-top-right"><span>{{$item["producte"]->descompte}}%</span></div>
