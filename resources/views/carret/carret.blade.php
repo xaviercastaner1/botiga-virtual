@@ -4,6 +4,7 @@
     <div class="container">
 
     <h1>CARRET</h1>
+    <p>Tens {{count($items)}} productes al carret</p>
     <hr>
 
     @foreach($items as $item)
@@ -55,9 +56,13 @@
 
     @endforeach
 
-    <a href="">
-        <button type="button" class="btn btn-warning mt-3">COMPRAR</button>
-    </a>
+    <form action="{{ route('producte.update') }}" method="POST">
+    @csrf
+        <button type="submit"
+        class="btn btn-warning mt-5"
+        style="padding: 10px 20px; 
+        {{ count($items) == 0 ? 'display: none;' : '' }}">Comprar</button>
+    </form>
 
     <a href="{{ Session::get('previous_productes_url') }}">
         <h3 class="mt-5">Tornar als productes</h3>

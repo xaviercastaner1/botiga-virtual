@@ -9,4 +9,12 @@ class ContacteController extends Controller
     public function index() {
         return view('contacte.contacte');
     }
+
+    public function show() {
+
+    }
+
+    public function create() {
+        
+    }
 }

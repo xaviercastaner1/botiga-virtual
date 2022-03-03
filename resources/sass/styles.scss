@@ -99,8 +99,12 @@
     margin-top: 10px;
 }
 
-#form-filtres {
+.form-filtres {
     padding-left: 15px;
+}
+
+#submit-button, #reset-button {
+  min-width: 100px;
 }
 
 .carret-icon {

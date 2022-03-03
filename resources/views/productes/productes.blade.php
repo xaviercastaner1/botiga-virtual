@@ -14,7 +14,7 @@
                 {{ Session::forget('return') }}
             @endif
 
-            <div class="row ms-5 gap-5 productes">
+            <div class="row ms-5 gap-5 mb-5 productes">
             @foreach($productes as $producte)
                 <div class="producte-container col">
 
@@ -57,7 +57,7 @@
         <div class="col">
 
             <form action="{{ route('producte.index') }}"
-            method="POST" id="form-filtres" class="w-75">
+            method="POST" class="w-75 form-filtres">
             @csrf
                 <h1>FILTRES</h1>
 
@@ -106,7 +106,7 @@
                     <div class="order-method-checkbox">
                     @foreach($methods as $method => $method_title)
                         <input type="radio" name="ordenar_method"
-                        value="{{$method}}"
+                        value="{{$method}}" style="margin-right: 8px";
                         {{ $ordenar_method == $method ? 'checked' : '' }}
                         >{{$method_title}}<br/>
                     @endforeach
@@ -120,8 +120,17 @@
                     <button type="submit" id="submit-button"
                     class="btn btn-primary">FILTRAR</button>
 
-                </div>
+                    
 
+                </div>
+                    
+            </form>
+
+            <form action="{{ route('productes.index') }}" method="POST"
+            class="form-filtres mt-3">
+            @csrf
+                <button type="submit" id="reset-button"
+                class="btn btn-warning">RESET</button>
             </form>
 
         </div>

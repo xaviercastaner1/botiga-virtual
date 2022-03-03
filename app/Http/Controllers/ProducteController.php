@@ -9,6 +9,7 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\VarDumper\VarDumper;
+use Throwable;
 
 class ProducteController extends Controller
 {
@@ -62,6 +63,44 @@ class ProducteController extends Controller
         $producte = Producte::findOrFail($id);
         Session::put('previous_productes_url', url()->previous());
         return view("productes.producte", compact('producte'));
+    }
+
+    public function update() {
+
+        $carret = Session::get('carret') ?? [];
+        $successCount = 0;
+        $successFlag = true;
+
+        foreach ($carret as $id => $item) {
+
+            try {
+
+                $producte = Producte::findOrFail($id);
+                $producte->stock -= $item[0]["unitats"];
+                $producte->save();
+                $successCount++;
+
+            } catch (Throwable $e) {
+                report($e);
+                $successFlag = false;
+
+            }
+            
+        }
+
+        if($successFlag) {
+            Session::forget('carret');
+        }
+
+
+        Session::put('return', [
+            'msg' => "S'han comprat $successCount productes",
+            'alert' => 'alert-success'
+        ]);
+
+        return Session::has('previous_productes_url')
+        ? redirect(Session::get('previous_productes_url'))
+        : redirect()->route('producte.index');
     }
 
 }

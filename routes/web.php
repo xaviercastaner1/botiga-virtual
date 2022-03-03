@@ -33,6 +33,7 @@ Route::get('/contacte', [ContacteController::class, "index"])->name("contacte.in
 /* ROUTES PRODUCTE */
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
 Route::get('/productes/{id}', [ProducteController::class, "show"])->name("producte.show");
+Route::post('/productes/update', [ProducteController::class, "update"])->name("producte.update");
 
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 
