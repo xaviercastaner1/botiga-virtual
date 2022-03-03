@@ -39,6 +39,7 @@ class ProducteController extends Controller
         $productes = Producte::whereIn('proveidor', $filtres_proveidors)
                 ->whereIn('categoria', $filtres_categories)
                 ->where('preu', '<', $filtres_preu_maxim)
+                ->where('stock', '>', 0)
                 ->orderBy($filtres_ordenar, $ordenar_method)
                 ->paginate($items);
 

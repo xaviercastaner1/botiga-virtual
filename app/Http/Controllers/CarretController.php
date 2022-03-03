@@ -19,17 +19,23 @@ class CarretController extends Controller
 
         $carret = Session::get('carret') ?? [];
         $items = [];
+        $total = 0;
 
         foreach($carret as $id => $item) {
+
+            $producte = Producte::findOrFail($id);
+
             $items[] = [
-                'producte' => Producte::findOrFail($id),
+                'producte' => $producte,
                 'unitats' => $item[0]['unitats']
             ];
+
+            $total += $producte->preu * intval($item[0]['unitats']);
 
         }
 
 
-        return view('carret.carret', compact('items'));
+        return view('carret.carret', compact('items', 'total'));
     }
 
     public function show($id) {

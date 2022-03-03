@@ -42,13 +42,13 @@
                 </div>
 
             </div>
-            <div>
+            <div class="mt-5">
                 <h1>Unitats: {{$item["unitats"]}}</h1>
                 <form action="{{ route('carret.destroy', ['id' => $item['producte']->id]) }}"
                 method="POST">
                 @csrf
                     <button type="submit"
-                    class="btn btn-danger">Eliminar</button>
+                    class="btn btn-danger mt-3">Eliminar</button>
                 </form>
             </div>
 
@@ -56,10 +56,12 @@
 
     @endforeach
 
+    <h4>Total: {{$total}}€</h4>
+
     <form action="{{ route('producte.update') }}" method="POST">
     @csrf
         <button type="submit"
-        class="btn btn-warning mt-5"
+        class="btn btn-warning mt-4"
         style="padding: 10px 20px; 
         {{ count($items) == 0 ? 'display: none;' : '' }}">Comprar</button>
     </form>

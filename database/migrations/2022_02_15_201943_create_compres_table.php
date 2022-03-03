@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('compres', function (Blueprint $table) {
             $table->id();
-            $table->integer('unitats');
             $table->date('data_compra');
             $table->date('data_entrega');
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProducteController;
 use App\Http\Controllers\CarretController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CookieController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -47,8 +48,13 @@ Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.st
 Route::post('/carret/destroy/{id}', [CarretController::class, "destroy"])->name("carret.destroy")
 ->middleware('userIsLogged');
 
+/* ROUTES USER */
+Route::get('/user/{id}', [UserController::class, "show"])->name("user.show")
+->middleware('userIsLogged');
+Route::post('/user/{id}', [UserController::class, "update"])->name("user.update")
+->middleware('userIsLogged');
+
 Auth::routes();
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/cookie/set', [CookieController::class, "setCookie"]);
 Route::get('/cookie/get', [CookieController::class, "getCookie"]);
