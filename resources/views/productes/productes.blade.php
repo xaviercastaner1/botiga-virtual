@@ -106,7 +106,7 @@
                     <div class="order-method-checkbox">
                     @foreach($methods as $method => $method_title)
                         <input type="radio" name="ordenar_method"
-                        value="{{$method}}" style="margin-right: 8px";
+                        value="{{$method}}" style="margin-right: 8px;"
                         {{ $ordenar_method == $method ? 'checked' : '' }}
                         >{{$method_title}}<br/>
                     @endforeach
