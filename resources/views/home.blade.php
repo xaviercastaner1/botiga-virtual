@@ -11,7 +11,7 @@
                   <small class="card-meta mb-2">Recursivitat</small>
                   <h4 class="card-title mt-0 "><a class="text-white"
                   href="{{ route('home') }}">Fes click aquí per un bucle inifinit d'accés al home</a></h4>
-                  <small><i class="far fa-clock"></i> October 15, 2020</small>
+
                </div>
                <div class="card-footer">
                   <h3>HOME</h3>
@@ -42,7 +42,7 @@
                   <small class="card-meta mb-2">Tens cap dubte?</small>
                   <h4 class="card-title mt-0 "><a class="text-white"
                   href="{{ route('contacte.index') }}">Aprofita el nostre formulari de contacte o xarxes socials</a></h4>
-                  <small><i class="far fa-clock"></i> October 15, 2020</small>
+
                </div>
                <div class="card-footer">
                   <h3>CONTACTE</h3>

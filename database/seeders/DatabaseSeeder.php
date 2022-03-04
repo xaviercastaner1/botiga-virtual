@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ProveidorTableSeeder;
+use Database\Seeders\UserTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UserTableSeeder::class);
+        $this->command->info('User table seeded!');
+
         $this->call(ProveidorTableSeeder::class);
         $this->command->info('Proveidor table seeded!');
 

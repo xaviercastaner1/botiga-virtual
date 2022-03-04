@@ -64,7 +64,15 @@
                             @endif
                         @else
 
+                            @if (auth()->user()->admin)
+                                <a class="nav-link" role="button" aria-haspopup="true"
+                                href="{{route('producte.create')}}">
+                                    Afegir producte
+                                </a>
+                            @endif
+
                             <li class="nav-item dropdown">
+
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>

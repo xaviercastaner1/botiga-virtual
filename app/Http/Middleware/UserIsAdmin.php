@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserIsLogged
+class UserIsAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,6 +17,11 @@ class UserIsLogged
      */
     public function handle(Request $request, Closure $next)
     {
-        return Auth::check() ? $next($request) : redirect(url()->previous());
+        if(Auth::check()) {
+            return auth()->user()->admin ? $next($request) : redirect(url()->previous());
+        } else {
+            return redirect(url()->previous());
+        }
+
     }
 }

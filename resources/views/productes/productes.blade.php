@@ -56,10 +56,26 @@
 
         <div class="col">
 
+            <form action="{{route('productes.index')}}" method="POST"
+            class="w-75 form-filtres mb-5">
+            @csrf
+                <h2>BUSCAR</h2>
+                <div class="d-flex gap-3 mb-3">
+                    <img src="{{asset('assets/lupa.png')}}"
+                    width="35" height="35">
+                    <input type="text" name="filtres_buscar"
+                    class="form-control" placeholder="Teclat..."
+                    value="{{request('filtres_buscar') ?? ''}}">
+                </div>
+
+                <button type="submit"
+                class="btn btn-primary">BUSCAR</button>
+            </form>
+
             <form action="{{ route('producte.index') }}"
             method="POST" class="w-75 form-filtres">
             @csrf
-                <h1>FILTRES</h1>
+                <h2>FILTRES</h2>
 
                 <hr>
                 <h3>Proveidor: </h3>
@@ -120,13 +136,13 @@
                     <button type="submit" id="submit-button"
                     class="btn btn-primary">FILTRAR</button>
 
-                    
+
 
                 </div>
-                    
+
             </form>
 
-            <form action="{{ route('productes.index') }}" method="POST"
+            <form action="{{ route('productes.index') }}" method="GET"
             class="form-filtres mt-3">
             @csrf
                 <button type="submit" id="reset-button"
