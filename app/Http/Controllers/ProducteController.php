@@ -58,6 +58,7 @@ class ProducteController extends Controller
             'items',
             'proveidors',
             'categories',
+            'filtres_buscar',
             'filtres_proveidors',
             'filtres_categories',
             'filtres_preu_maxim',

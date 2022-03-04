@@ -67,7 +67,7 @@
             </div>
         </div>
 
-    <a href="{{ url()->previous() }}">
+    <a href="{{ Session::has('previous_productes_url') ? Session::get('previous_productes_url') : url()->previous() }}">
         <h3 class="mt-4">Tornar als productes</h3>
     </a>
     </div>

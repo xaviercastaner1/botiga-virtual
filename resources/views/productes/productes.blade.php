@@ -56,7 +56,7 @@
 
         <div class="col">
 
-            <form action="{{route('productes.index')}}" method="POST"
+            <form action="{{route('productes.index')}}" method="GET"
             class="w-75 form-filtres mb-5">
             @csrf
                 <h2>BUSCAR</h2>
@@ -155,6 +155,7 @@
 
     <div class="paginator mx-auto mt-5">
         {{ $productes->appends([
+            'filtres_buscar' => $filtres_buscar,
             'filtres_proveidors' => $filtres_proveidors,
             'filtres_categories' => $filtres_categories,
             'filtres_preu_maxim' => $filtres_preu_maxim,

@@ -61,7 +61,7 @@ class CarretController extends Controller
                 'alert' => 'alert-success'
             ]);
 
-            return Session::has('previous_productes_url') 
+            return Session::has('previous_productes_url')
             ? redirect(Session::get('previous_productes_url'))
             : redirect()->route('producte.index');
 
@@ -90,4 +90,5 @@ class CarretController extends Controller
 
         return redirect()->route('carret.index');
     }
+
 }
