@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Producte;
 use App\Models\Proveidor;
+use BladeUIKit\Components\Forms\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\VarDumper\VarDumper;
@@ -13,8 +14,10 @@ use Throwable;
 class ProducteController extends Controller
 {
 
-    public function index() {
+    public function index(Request $request) {
         //Session::flush();
+
+        Session::put('previous_productes_url', $request->fullUrl());
 
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
 
@@ -100,26 +103,65 @@ class ProducteController extends Controller
             'alert' => $result ? 'alert-success' : 'alert-warning'
         ]);
 
-        return redirect()->route('producte.create');
+        return redirect()->route('producte.show', ['id' => $result->id]);
 
     }
 
     public function show($id) {
         $producte = Producte::findOrFail($id);
-        Session::put('previous_productes_url', url()->previous());
+
         return view("productes.producte", compact('producte'));
     }
 
     public function edit($id) {
-        echo "edit $id";
+        $proveidors = Proveidor::all()->pluck('nom')->toArray();
+
+        $categories = array_map(
+            function ($val) {
+                return ucwords($val);
+            },
+            Categoria::all()->pluck('nom')->toArray()
+        );
+
+        $producte = Producte::findOrFail($id);
+
+        return view("admin.productes.edit", compact('producte', 'proveidors', 'categories'));
     }
 
-    public function update($id) {
-        echo "update $id";
+    public function update(Request $request, $id) {
+
+        $result = Producte::where('id', $id)
+            ->update([
+                'nom' => $request->input('nom'),
+                'descripcio' => $request->input('descripcio'),
+                'imatge' => $request->input('imatge'),
+                'preu' => $request->input('preu'),
+                'descompte' => $request->input('descompte'),
+                'stock' => $request->input('stock'),
+                'proveidor' => $request->input('proveidor'),
+                'categoria' => $request->input('categoria')
+            ]);
+
+        Session::put('return', [
+            'msg' => $result ? 'Producte editat correctament.' : 'Error editant producte',
+            'alert' => $result ? 'alert-success' : 'alert-warning'
+        ]);
+
+        return redirect()->route('producte.show', ['id' => $id]);
+
+
     }
 
     public function destroy($id) {
-        echo "destroy $id";
+        $result = Producte::destroy($id);
+        Session::put('return', [
+            'msg' => $result ? 'Producte eliminat correctament.' : 'Error eliminant producte',
+            'alert' => $result ? 'alert-success' : 'alert-warning'
+        ]);
+
+        return Session::has('previous_productes_url')
+        ? redirect(Session::get('previous_productes_url'))
+        : redirect()->route('producte.index');
     }
 
     public function updateStock() {

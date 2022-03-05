@@ -2,6 +2,12 @@
 @section('title', 'Producte')
 @section('content')
     <div class="container">
+        @if(Session::has('return'))
+            <div class="w-25 alert {{ Session::get('return')['alert'] }}">
+                {{Session::get('return')['msg']}}
+            </div>
+            {{ Session::forget('return') }}
+        @endif
         <div class="producte-container">
             <div class="producte-container producte-container-show col">
 
@@ -51,11 +57,42 @@
 
                                     </div>
 
-                                    <div class="total-multiplied-unitats mt-4">
+                                    <div class="total-multiplied-unitats mt-4 mb-5">
                                         <h4>Total: <span class="resultat">{{$producte->preu}}€</span></h4>
                                     </div>
 
+
                                 </form>
+
+                                @if (Auth::check() && auth()->user()->admin)
+                                    <div class="d-flex gap-3 flex-grow">
+                                        <h3>Accions d'administrador:</h3>
+
+                                        <div class="btn-group dropend">
+                                            <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Accions
+                                            </button>
+                                            <ul class="dropdown-menu">
+
+                                                <li>
+                                                    <form action="{{route('producte.destroy', ['id' => $producte->id])}}" method="POST">
+                                                    @csrf
+                                                        <button type="submit"
+                                                        class="dropdown-item">Eliminar</button>
+                                                    </form>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" href="{{route('producte.edit', ['id' => $producte->id])}}">
+                                                        Editar
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                @endif
                             </div>
 
                         </div>
@@ -67,8 +104,8 @@
             </div>
         </div>
 
-    <a href="{{ Session::has('previous_productes_url') ? Session::get('previous_productes_url') : url()->previous() }}">
-        <h3 class="mt-4">Tornar als productes</h3>
+    <a href="{{ Session::has('previous_productes_url') ? Session::get('previous_productes_url') : route('producte.index') }}">
+        <h3 class="mt-4" style="display: inline-block;">Tornar als productes</h3>
     </a>
     </div>
 

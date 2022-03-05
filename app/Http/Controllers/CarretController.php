@@ -34,52 +34,53 @@ class CarretController extends Controller
 
         }
 
-
         return view('carret.carret', compact('items', 'total'));
     }
 
-    public function show($id) {
-
-    }
 
     public function store($id) {
 
+        $unitats = request('unitats') ?? 1;
+        $producte = Producte::findOrFail($id);
 
-        if(Auth::check()) {
+        if(!Session::has('carret')) {
+            Session::put('carret', []);
+        }
 
-            $unitats = request('unitats') ?? 1;
-            $producte = Producte::findOrFail($id);
+        if (Session::has("carret.$id")) {
+            $item = Session::get("carret.$id");
+            Session::forget("carret.$id");
+            $unitats = ($unitats + $item[0]["unitats"] <= $producte->stock)
+                ? $unitats + $item[0]["unitats"]
+                : $producte->stock;
+            Session::push("carret.$id", ['unitats' => $unitats]);
 
-            if(!Session::has('carret')) {
-                Session::put('carret', []);
-            }
+        } else {
 
             Session::push("carret.$id", ['unitats' => $unitats]);
 
-            Session::put('return', [
-                'msg' => 'Producte agregat correctament.',
-                'alert' => 'alert-success'
-            ]);
-
-            return Session::has('previous_productes_url')
-            ? redirect(Session::get('previous_productes_url'))
-            : redirect()->route('producte.index');
-
         }
+
+
+        Session::put('return', [
+            'msg' => 'Producte agregat correctament.',
+            'alert' => 'alert-success'
+        ]);
+
+        return Session::has('previous_productes_url')
+        ? redirect(Session::get('previous_productes_url'))
+        : redirect()->route('producte.index');
+
 
     }
 
     public function destroy($id) {
 
         $result = false;
-        foreach(Session::get('carret') as $id_producte => $item) {
-
-            if(intval($id_producte) == $id) {
-
-                $result = Session::forget("carret.$id");
-
-            }
+        if(Session::has("carret.$id")) {
+            $result = Session::forget("carret.$id");
         }
+
 
         if($result) {
             Session::put('return', [

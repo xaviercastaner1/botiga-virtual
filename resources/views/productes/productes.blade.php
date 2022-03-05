@@ -73,7 +73,7 @@
             </form>
 
             <form action="{{ route('producte.index') }}"
-            method="POST" class="w-75 form-filtres">
+            method="GET" class="w-75 form-filtres">
             @csrf
                 <h2>FILTRES</h2>
 

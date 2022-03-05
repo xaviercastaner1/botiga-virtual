@@ -43,7 +43,7 @@ Route::post('/productes/store', [ProducteController::class, "store"])->name("pro
 
 Route::get('/productes/{id}', [ProducteController::class, "show"])->name("producte.show");
 
-Route::get('/productes/{id}/edit', [ProducteController::class, "edit"])->name("producte.edit")
+Route::get('/productes/edit/{id}', [ProducteController::class, "edit"])->name("producte.edit")
 ->middleware('userIsAdmin');
 
 Route::post('/productes/update/{id}', [ProducteController::class, "update"])->name("producte.update")
@@ -58,9 +58,6 @@ Route::post('/productes/updateStock', [ProducteController::class, "updateStock"]
 
 /* ROUTES CARRET */
 Route::get('/carret', [CarretController::class, "index"])->name("carret.index")
-->middleware('userIsLogged');
-
-Route::get('/carret/{id}', [CarretController::class, "show"])->name("carret.show")
 ->middleware('userIsLogged');
 
 Route::post('/carret/{id}', [CarretController::class, "store"])->name("carret.store")
