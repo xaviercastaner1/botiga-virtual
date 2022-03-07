@@ -7,6 +7,7 @@ use App\Models\Producte;
 use App\Models\Proveidor;
 use BladeUIKit\Components\Forms\Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\VarDumper\VarDumper;
 use Throwable;
@@ -109,23 +110,47 @@ class ProducteController extends Controller
 
     public function show($id) {
         $producte = Producte::findOrFail($id);
+        $productes_url = '#';
+        if (auth()->user()->admin) {
+            $productes_url = Session::has('previous_admin_productes_url')
+            ? Session::get('previous_admin_productes_url')
+            : route('admin.producte.index');
+        } else {
+            $productes_url = Session::has('previous_productes_url')
+            ? Session::get('previous_productes_url')
+            : route('producte.index');
+        }
 
-        return view("productes.producte", compact('producte'));
+        return view("productes.producte", compact(
+            'producte',
+            'productes_url'
+        ));
     }
 
     public function edit($id) {
         $proveidors = Proveidor::all()->pluck('nom')->toArray();
 
-        $categories = array_map(
-            function ($val) {
-                return ucwords($val);
-            },
-            Categoria::all()->pluck('nom')->toArray()
-        );
+        $categories = Categoria::all()->pluck('nom')->toArray();
 
         $producte = Producte::findOrFail($id);
 
-        return view("admin.productes.edit", compact('producte', 'proveidors', 'categories'));
+        $productes_url = '#';
+        if(auth()->user()->admin) {
+            $productes_url = Session::has('previous_admin_productes_url')
+            ? Session::get('previous_admin_productes_url')
+            : route('admin.producte.index');
+        } else {
+            $productes_url = Session::has('previous_productes_url')
+            ? Session::get('previous_productes_url')
+            : route('producte.index');
+        }
+
+        return view("admin.productes.edit", compact(
+            'producte',
+            'proveidors',
+            'categories',
+            'productes_url'
+        ));
     }
 
     public function update(Request $request, $id) {
@@ -159,9 +184,9 @@ class ProducteController extends Controller
             'alert' => $result ? 'alert-success' : 'alert-warning'
         ]);
 
-        return Session::has('previous_productes_url')
-        ? redirect(Session::get('previous_productes_url'))
-        : redirect()->route('producte.index');
+        return Session::has('previous_admin_productes_url')
+        ? redirect(Session::get('previous_admin_productes_url'))
+        : redirect()->route('admin.producte.index');
     }
 
     public function updateStock() {
@@ -197,6 +222,18 @@ class ProducteController extends Controller
         return Session::has('previous_productes_url')
         ? redirect(Session::get('previous_productes_url'))
         : redirect()->route('producte.index');
+    }
+
+    public function admin(Request $request) {
+        Session::put('previous_admin_productes_url', $request->fullUrl());
+
+        $productes = Producte::paginate(20);
+        $columnes = DB::getSchemaBuilder()->getColumnListing('productes');
+
+        return view('admin.productes.index', compact(
+            'productes',
+            'columnes'
+        ));
     }
 
 }

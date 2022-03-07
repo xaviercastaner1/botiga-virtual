@@ -34,6 +34,9 @@ Route::get('/contacte', [ContacteController::class, "index"])->name("contacte.in
 /* ROUTES PRODUCTE */
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
+Route::get('/admin/productes', [ProducteController::class, "admin"])->name("admin.producte.index")
+->middleware('userIsAdmin');;
+
 
 Route::get('/productes/create', [ProducteController::class, "create"])->name("producte.create")
 ->middleware('userIsAdmin');

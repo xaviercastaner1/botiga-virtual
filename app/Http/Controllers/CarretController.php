@@ -48,8 +48,10 @@ class CarretController extends Controller
         }
 
         if (Session::has("carret.$id")) {
+
             $item = Session::get("carret.$id");
             Session::forget("carret.$id");
+
             $unitats = ($unitats + $item[0]["unitats"] <= $producte->stock)
                 ? $unitats + $item[0]["unitats"]
                 : $producte->stock;

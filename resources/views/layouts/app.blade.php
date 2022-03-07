@@ -67,6 +67,26 @@
                         @else
 
                             @if (auth()->user()->admin)
+                                <div class="btn-group" style="margin-right: 15px">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Administrador
+                                    </button>
+                                    <ul class="dropdown-menu">
+
+                                        <li>
+                                            <a class="dropdown-item" href="">
+                                                Compres
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="{{route('admin.producte.index')}}">
+                                                Productes
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
                                 <a class="nav-link" role="button" aria-haspopup="true"
                                 href="{{route('producte.create')}}">
                                     Afegir producte
