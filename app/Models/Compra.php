@@ -15,4 +15,15 @@ class Compra extends Model
      * @var string
      */
     protected $table = 'compres';
+
+    protected $attributes = [
+        'validat' => false
+    ];
+
+    protected $fillable = [
+        'data_compra',
+        'data_entrega',
+        'productes',
+        'validat'
+    ];
 }

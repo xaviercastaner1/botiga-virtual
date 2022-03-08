@@ -74,7 +74,7 @@
                                     <ul class="dropdown-menu">
 
                                         <li>
-                                            <a class="dropdown-item" href="">
+                                            <a class="dropdown-item" href="{{route('admin.compra.index')}}">
                                                 Compres
                                             </a>
                                         </li>
@@ -103,6 +103,10 @@
 
                                     <a class="dropdown-item" href="{{ route('user.show', ['id' => Auth::id()]) }}">
                                         {{ __('Perfil') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('compra.index') }}">
+                                        {{ __('Compres') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

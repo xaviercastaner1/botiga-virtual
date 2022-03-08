@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Carret;
 use App\Models\Producte;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Console\Input\Input;
@@ -16,6 +18,7 @@ class CarretController extends Controller
     public function index() {
 
         //Session::flush();
+
 
         $carret = Session::get('carret') ?? [];
         $items = [];

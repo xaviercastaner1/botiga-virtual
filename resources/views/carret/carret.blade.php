@@ -58,7 +58,7 @@
 
     <h4>Total: {{$total}}€</h4>
 
-    <form action="{{ route('producte.updateStock') }}" method="POST">
+    <form action="{{ route('compra.store') }}" method="POST">
     @csrf
         <button type="submit"
         class="btn btn-warning mt-4"

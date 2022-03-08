@@ -189,40 +189,6 @@ class ProducteController extends Controller
         : redirect()->route('admin.producte.index');
     }
 
-    public function updateStock() {
-
-        $carret = Session::get('carret') ?? [];
-        $successCount = 0;
-        $successFlag = true;
-
-        foreach ($carret as $id => $item) {
-
-            try {
-
-                $producte = Producte::findOrFail($id);
-                $producte->stock -= $item[0]["unitats"];
-                $producte->save();
-                $successCount++;
-            } catch (Throwable $e) {
-                report($e);
-                $successFlag = false;
-            }
-        }
-
-        if ($successFlag) {
-            Session::forget('carret');
-        }
-
-
-        Session::put('return', [
-            'msg' => "S'han comprat $successCount productes",
-            'alert' => 'alert-success'
-        ]);
-
-        return Session::has('previous_productes_url')
-        ? redirect(Session::get('previous_productes_url'))
-        : redirect()->route('producte.index');
-    }
 
     public function admin(Request $request) {
         Session::put('previous_admin_productes_url', $request->fullUrl());

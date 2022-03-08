@@ -11,8 +11,7 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Descripcio</th>
                 <th scope="col">Imatge</th>
-                <th scope="col">Preu</th>
-                <th scope="col">Accions</th>
+                <th scope="col" class="text-center">Accions</th>
             </tr>
 
         </thead>
@@ -25,9 +24,6 @@
                 <td>{{$producte->descripcio}}</td>
                 <td>
                     <img src="{{$producte->imatge}}" width="80">
-                </td>
-                <td>
-                    <h4>{{$producte->preu}}€</h4>
                 </td>
                 <td>
                     <div class="d-flex gap-3">
