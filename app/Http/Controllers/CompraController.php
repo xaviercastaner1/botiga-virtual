@@ -14,6 +14,18 @@ class CompraController extends Controller
 {
     public function index() {
         $compres = Compra::where('id_user', '=', Auth::id())->paginate(20) ?? [];
+
+        $compresArr = [];
+
+        foreach ($compres as $compra) {
+
+            foreach(json_decode($compra->productes) as $id_producte => $item) {
+                $producte = Producte::findOrFail($id_producte);
+
+            }
+
+        }
+
         return view("compres.index", compact(
             'compres'
         ));
@@ -63,6 +75,14 @@ class CompraController extends Controller
         : redirect()->route('producte.index');
     }
 
+    public function show($id) {
+        $compra = Compra::findOrFail($id);
+
+        return view("admin.compres.show", compact(
+            'compra'
+        ));
+    }
+
     public function update($id) {
         $result = Compra::where('id', $id)
                 ->update([
@@ -74,11 +94,18 @@ class CompraController extends Controller
             'alert' => $result ? 'alert-success' : 'alert-warning'
         ]);
 
-        return view('admin.compres.index');
+        return redirect()->route('admin.compra.index');
     }
 
     public function destroy($id) {
+        $result = Compra::destroy($id);
 
+        Session::put('return', [
+            'msg' => $result ? 'Compra eliminada correctament.' : 'Error eliminant compra.',
+            'alert' => $result ? 'alert-success' : 'alert-warning'
+        ]);
+
+        return redirect()->route('admin.compra.index');
     }
 
     public function admin() {

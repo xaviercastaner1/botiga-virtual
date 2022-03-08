@@ -180,7 +180,7 @@ class ProducteController extends Controller
     public function destroy($id) {
         $result = Producte::destroy($id);
         Session::put('return', [
-            'msg' => $result ? 'Producte eliminat correctament.' : 'Error eliminant producte',
+            'msg' => $result ? 'Producte eliminat correctament.' : 'Error eliminant producte.',
             'alert' => $result ? 'alert-success' : 'alert-warning'
         ]);
 
