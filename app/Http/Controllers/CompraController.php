@@ -13,21 +13,30 @@ use Symfony\Component\VarDumper\VarDumper;
 class CompraController extends Controller
 {
     public function index() {
-        $compres = Compra::where('id_user', '=', Auth::id())->paginate(20) ?? [];
+        $compres = Compra::where('id_user', '=', Auth::id())->get() ?? [];
 
         $compresArr = [];
 
         foreach ($compres as $compra) {
 
+            $productes = [];
+
             foreach(json_decode($compra->productes) as $id_producte => $item) {
                 $producte = Producte::findOrFail($id_producte);
 
+                $productes[] = $producte;
+
             }
+
+            $compresArr[$compra->id] = [
+                'compra' => $compra,
+                'productes' => $productes
+            ];
 
         }
 
         return view("compres.index", compact(
-            'compres'
+            'compresArr'
         ));
     }
 
@@ -90,7 +99,7 @@ class CompraController extends Controller
                 ]);
 
         Session::put('return', [
-            'msg' => $result ? 'Producte editat correctament.' : 'Error editant producte',
+            'msg' => $result ? 'Compra editada correctament.' : 'Error editant compra.',
             'alert' => $result ? 'alert-success' : 'alert-warning'
         ]);
 
@@ -111,10 +120,28 @@ class CompraController extends Controller
     public function admin() {
         $compres = Compra::join('users', 'compres.id_user', '=', 'users.id')
         ->select('compres.*', 'users.name')
-        ->where('validat', '=', false)->paginate(20) ?? [];
+        ->where('validat', '=', false)->get() ?? [];
+
+        $compresArr = [];
+
+        foreach ($compres as $compra) {
+
+            $productes = [];
+
+            foreach (json_decode($compra->productes) as $id_producte => $item) {
+                $producte = Producte::findOrFail($id_producte);
+
+                $productes[] = $producte;
+            }
+
+            $compresArr[$compra->id] = [
+                'compra' => $compra,
+                'productes' => $productes
+            ];
+        }
 
         return view("admin.compres.index", compact(
-            'compres'
+            'compresArr'
         ));
     }
 }

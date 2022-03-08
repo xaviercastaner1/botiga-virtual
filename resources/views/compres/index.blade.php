@@ -2,6 +2,7 @@
 @section('title', 'Compres')
 @section('content')
 <div class="container" style="min-height: 400px">
+
     <h1>COMPRES</h1>
     <hr>
 
@@ -12,7 +13,7 @@
             <tr>
                 <th scope="col">Id Compra</th>
                 <th scope="col">Data Compra</th>
-                <th scope="col">Productes</th>
+                <th scope="col" style="width: 50%">Productes</th>
                 <th scope="col">Validat</th>
             </tr>
 
@@ -20,12 +21,22 @@
 
         <tbody>
 
-        @foreach($compres as $compra)
+        @foreach($compresArr as $id => $compra)
             <tr>
-                <td>{{$compra->id}}</td>
-                <td>{{$compra->data_compra}}</td>
-                <td>{{$compra->productes}}</td>
-                <td>{{$compra->validat ? 'Sí' : 'No'}}</td>
+                <td>{{$id}}</td>
+                <td>{{$compra['compra']->data_compra}}</td>
+                <td>
+                    <div class="d-flex flex-wrap gap-2">
+                    @foreach ($compra['productes'] as $producte)
+                        <a class="compra-item btn btn-light"
+                        href="{{route('producte.show', ['id' => $producte->id])}}">{{$producte->nom}}</a>
+                    @endforeach
+                    </div>
+
+                </td>
+                <td>
+                    <p>{{$compra['compra']->validat ? 'Sí' : 'No'}}</p>
+                </td>
             </tr>
         @endforeach
 
@@ -33,8 +44,5 @@
 
     </table>
 
-    <div class="paginator mx-auto mt-5">
-        {{ $compres->links('pagination::bootstrap-5') }}
-    </div>
 </div>
 @stop

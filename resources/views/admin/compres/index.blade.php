@@ -27,7 +27,7 @@
 
         <tbody>
 
-        @foreach($compres as $compra)
+        {{-- @foreach($compres as $compra)
             <tr>
                 <td>{{$compra->id}}</td>
                 <td>{{$compra->data_compra}}</td>
@@ -60,14 +60,49 @@
                     </div>
                 </td>
             </tr>
+        @endforeach --}}
+
+        @foreach($compresArr as $id => $compra)
+            <tr>
+                <td>{{$id}}</td>
+                <td>{{$compra['compra']->data_compra}}</td>
+                <td>{{$compra['compra']->name}}</td>
+                <td>
+                    <div class="d-flex flex-wrap gap-2">
+                    @foreach ($compra['productes'] as $producte)
+                        <a class="compra-item btn btn-light"
+                        href="{{route('producte.show', ['id' => $producte->id])}}">{{$producte->nom}}</a>
+                    @endforeach
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex gap-3">
+
+                        <a href="{{route('compra.show', ['id' => $id])}}"
+                        class="btn btn-warning" >
+                            Detalls
+                        </a>
+
+                        <form action="{{route('compra.update', ['id' => $id])}}"
+                        method="POST">
+                        @csrf
+                            <button class="btn btn-info" type="submit">Validar</button>
+                        </form>
+
+                        <form action="{{route('compra.destroy', ['id' => $id])}}"
+                        method="POST">
+                        @csrf
+                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                        </form>
+
+                    </div>
+                </td>
+            </tr>
         @endforeach
 
         </tbody>
 
     </table>
 
-    <div class="paginator mx-auto mt-5">
-        {{ $compres->links('pagination::bootstrap-5') }}
-    </div>
 </div>
 @stop

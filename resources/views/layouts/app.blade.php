@@ -75,7 +75,7 @@
 
                                         <li>
                                             <a class="dropdown-item" href="{{route('admin.compra.index')}}">
-                                                Compres
+                                                Compres Pendents
                                             </a>
                                         </li>
 
