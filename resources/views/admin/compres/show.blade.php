@@ -31,8 +31,8 @@
                 </td>
                 <td>
                     <div class="d-flex gap-3">
-                        <a href="{{route('producte.edit', ['id' => $producte->id])}}"
-                        class="btn btn-warning">Editar</a>
+                        <a href="{{route('producte.show', ['id' => $producte->id])}}"
+                        class="btn btn-warning">Detalls</a>
                         <form action="{{route('producte.destroy', ['id' => $producte->id])}}"
                         method="POST">
                         @csrf
