@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Compra;
 use App\Models\Producte;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,20 @@ class CompraController extends Controller
 
     public function show($id) {
         $compra = Compra::findOrFail($id);
+
+        $usuari = User::findOrFail($compra->id_user);
+
+        $compra["usuari"] = $usuari;
+
+        $productes = [];
+
+        foreach (json_decode($compra->productes) as $id_producte => $item) {
+            $producte = Producte::findOrFail($id_producte);
+
+            $productes[] = $producte;
+        }
+
+        $compra["productes"] = $productes;
 
         return view("admin.compres.show", compact(
             'compra'

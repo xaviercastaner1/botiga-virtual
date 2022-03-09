@@ -27,41 +27,6 @@
 
         <tbody>
 
-        {{-- @foreach($compres as $compra)
-            <tr>
-                <td>{{$compra->id}}</td>
-                <td>{{$compra->data_compra}}</td>
-                <td>{{$compra->name}}</td>
-                <td>
-                @foreach (json_decode($compra->productes) as $id => $item)
-                    {{$id}}*{{$item[0]->unitats}},
-                @endforeach
-                </td>
-                <td>
-                    <div class="d-flex gap-3">
-
-                        <a href="{{route('compra.show', ['id' => $compra->id])}}"
-                        class="btn btn-warning" >
-                            Detalls
-                        </a>
-
-                        <form action="{{route('compra.update', ['id' => $compra->id])}}"
-                        method="POST">
-                        @csrf
-                            <button class="btn btn-info" type="submit">Validar</button>
-                        </form>
-
-                        <form action="{{route('compra.destroy', ['id' => $compra->id])}}"
-                        method="POST">
-                        @csrf
-                            <button class="btn btn-danger" type="submit">Eliminar</button>
-                        </form>
-
-                    </div>
-                </td>
-            </tr>
-        @endforeach --}}
-
         @foreach($compresArr as $id => $compra)
             <tr>
                 <td>{{$id}}</td>
