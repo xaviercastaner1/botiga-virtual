@@ -5,6 +5,7 @@ use App\Http\Controllers\ContacteController;
 use App\Http\Controllers\ProducteController;
 use App\Http\Controllers\CarretController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProveidorController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\UserController;
@@ -36,7 +37,7 @@ Route::get('/contacte', [ContacteController::class, "index"])->name("contacte.in
 Route::post('/productes', [ProducteController::class, "index"])->name('productes.index');
 Route::get('/productes', [ProducteController::class, "index"])->name("producte.index");
 Route::get('/admin/productes', [ProducteController::class, "admin"])->name("admin.producte.index")
-    ->middleware('userIsAdmin');;
+    ->middleware('userIsAdmin');
 
 
 Route::get('/productes/create', [ProducteController::class, "create"])->name("producte.create")
@@ -54,6 +55,40 @@ Route::post('/productes/update/{id}', [ProducteController::class, "update"])->na
     ->middleware('userIsAdmin');
 
 Route::post('/productes/destroy/{id}', [ProducteController::class, "destroy"])->name("producte.destroy")
+    ->middleware('userIsAdmin');
+
+
+
+/* ROUTES CATEGORIA */
+Route::get('/categories', [CategoriaController::class, "index"])->name("categoria.index");
+
+Route::get('/categories/create', [CategoriaController::class, "create"])->name("categoria.create")
+    ->middleware('userIsAdmin');
+
+Route::post('/categories/store', [CategoriaController::class, "store"])->name("categoria.store")
+    ->middleware('userIsAdmin');
+
+Route::post('/categories/update/{nom}', [CategoriaController::class, "update"])->name("categoria.update")
+    ->middleware('userIsAdmin');
+
+Route::post('/categories/destroy/{nom}', [CategoriaController::class, "destroy"])->name("categoria.destroy")
+    ->middleware('userIsAdmin');
+
+
+
+/* ROUTES PROVEIDOR */
+Route::get('/proveidors', [ProveidorController::class, "index"])->name("proveidor.index");
+
+Route::get('/proveidors/create', [ProveidorController::class, "create"])->name("proveidor.create")
+    ->middleware('userIsAdmin');
+
+Route::post('/proveidors/store', [ProveidorController::class, "store"])->name("proveidor.store")
+    ->middleware('userIsAdmin');
+
+Route::post('/proveidors/update/{nom}', [ProveidorController::class, "update"])->name("proveidor.update")
+    ->middleware('userIsAdmin');
+
+Route::post('/proveidors/destroy/{nom}', [ProveidorController::class, "destroy"])->name("proveidor.destroy")
     ->middleware('userIsAdmin');
 
 

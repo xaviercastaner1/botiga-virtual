@@ -85,6 +85,18 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a class="dropdown-item" href="{{route('categoria.index')}}">
+                                                Categories
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="{{route('proveidor.index')}}">
+                                                Proveidors
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </div>
                                 <a class="nav-link" role="button" aria-haspopup="true"
