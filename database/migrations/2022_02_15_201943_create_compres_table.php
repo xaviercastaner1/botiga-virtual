@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign('id_user')
                     ->references('id')
                     ->on('users')
+                    ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->json('productes');

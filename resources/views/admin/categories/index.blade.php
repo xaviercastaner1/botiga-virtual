@@ -53,7 +53,13 @@
 
         @foreach($categories as $categoria)
             <tr>
-                <td>{{$categoria->nom}}</td>
+                <td>
+                    <form action="{{route('categoria.update', ['nom' => $categoria->nom])}}"
+                    method="POST">
+                    @csrf
+                        <input type="text" value="{{$categoria->nom}}" name="nom">
+                    </form>
+                </td>
                 <td>
                     <div class="d-flex gap-3">
 

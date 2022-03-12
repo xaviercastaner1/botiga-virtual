@@ -26,12 +26,14 @@ return new class extends Migration
             $table->foreign('proveidor')
                     ->references('nom')
                     ->on('proveidors')
+                    ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->string('categoria');
             $table->foreign('categoria')
                     ->references('nom')
                     ->on('categories')
+                    ->onUpdate('cascade')
                     ->onDelete('cascade');
 
             $table->timestamps();
